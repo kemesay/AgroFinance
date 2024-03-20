@@ -1,11 +1,11 @@
 package com.Dx_Valley.AgroFinance.Repository;
-import com.Dx_Valley.AgroFinance.Models.Status;
+import com.Dx_Valley.AgroFinance.Models.AssetWithStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface StatusRepository extends JpaRepository<Status, Long> {
-    Status findByStatusName(String statusName);
-    Status findByStatusId(Long statusId);
+public interface StatusRepository extends JpaRepository<AssetWithStatus, Long> {
+    AssetWithStatus findByStatusName(String statusName);
+    AssetWithStatus findByStatusId(Long statusId);
 
 }
 

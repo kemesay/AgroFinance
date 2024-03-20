@@ -1,5 +1,5 @@
 package com.Dx_Valley.AgroFinance.Controller;
-import com.Dx_Valley.AgroFinance.DTIO.createUserResponse;
+import com.Dx_Valley.AgroFinance.DTO.createUserResponse;
 import com.Dx_Valley.AgroFinance.Models.Asset;
 import com.Dx_Valley.AgroFinance.Repository.AssetRepository;
 import com.Dx_Valley.AgroFinance.Service.AssetService;
@@ -40,6 +40,7 @@ public class AssetController {
         }
         return new ResponseEntity<>(asset, HttpStatus.OK);
     }
+
     @PutMapping("/edit/{assetId}")
     Asset editAsset(@RequestBody Asset asset, @PathVariable Long assetId) {
         Asset asset1 = this.assetRepository.findByAssetId(assetId);
@@ -53,6 +54,7 @@ public class AssetController {
         asset1.setAsset_endValue(asset.getAsset_endValue());
         return assetService.editAsset(asset1);
     }
+    
     @DeleteMapping("/delete/others/{otherId}")
     void deleteOthers(@PathVariable Long assetId) {
         this.assetRepository.deleteById(assetId);

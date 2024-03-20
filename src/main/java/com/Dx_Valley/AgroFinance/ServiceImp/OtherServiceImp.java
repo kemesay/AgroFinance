@@ -1,6 +1,6 @@
 package com.Dx_Valley.AgroFinance.ServiceImp;
-import com.Dx_Valley.AgroFinance.DTIO.ResponseMessage;
-import com.Dx_Valley.AgroFinance.Models.Others;
+import com.Dx_Valley.AgroFinance.DTO.ResponseMessage;
+import com.Dx_Valley.AgroFinance.Models.OtherAsset;
 import com.Dx_Valley.AgroFinance.Repository.OtherRepository;
 import com.Dx_Valley.AgroFinance.Service.OtherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
 public class OtherServiceImp implements OtherService {
     @Autowired
     private OtherRepository otherRepository;
     @Override
-    public ResponseEntity<?> registerOthers(Others others) {
-        Others others1 = otherRepository.findByOtherName(others.getOtherName());
+    public ResponseEntity<?> registerOthers(OtherAsset otherAsset) {
+        OtherAsset others = otherRepository.findByOtherName(otherAsset.getName());
         ResponseMessage responseMessage;
-        if (others1 == null) {
+        if (others == null) {
             otherRepository.save(others);
             responseMessage = new ResponseMessage("success", "Others created successfully");
             return new ResponseEntity<>(responseMessage, HttpStatus.OK);
@@ -28,13 +29,13 @@ public class OtherServiceImp implements OtherService {
         }
     }
     @Override
-    public Others editOthers(Others others) {
+    public OtherAsset editOthers(OtherAsset others) {
         return this.otherRepository.save(others);
     }
 
     @Override
-    public List<Others> fetchOthers() {
-        List<Others> others = new ArrayList<>();
+    public List<OtherAsset> fetchOthers() {
+        List<OtherAsset> others = new ArrayList<>();
         others.addAll(otherRepository.findAll());
         return others;
     }

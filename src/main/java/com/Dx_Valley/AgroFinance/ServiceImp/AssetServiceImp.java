@@ -1,5 +1,5 @@
 package com.Dx_Valley.AgroFinance.ServiceImp;
-import com.Dx_Valley.AgroFinance.DTIO.ResponseMessage;
+import com.Dx_Valley.AgroFinance.DTO.ResponseMessage;
 import com.Dx_Valley.AgroFinance.Models.Asset;
 import com.Dx_Valley.AgroFinance.Repository.AssetRepository;
 import com.Dx_Valley.AgroFinance.Service.AssetService;

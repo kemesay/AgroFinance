@@ -1,14 +1,14 @@
 package com.Dx_Valley.AgroFinance.Service;
 
-import com.Dx_Valley.AgroFinance.Models.Status;
+import com.Dx_Valley.AgroFinance.Models.AssetWithStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface StatusService {
-    List<Status> fetchStatus();
-    Status editStatus (Status status);
-    ResponseEntity<?> registerStatus(Status status);
+    List<AssetWithStatus> fetchStatus();
+    AssetWithStatus editStatus (AssetWithStatus status);
+    ResponseEntity<?> registerStatus(AssetWithStatus status);
 
 }
 

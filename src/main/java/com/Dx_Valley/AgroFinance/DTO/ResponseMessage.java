@@ -1,11 +1,13 @@
-package com.Dx_Valley.AgroFinance.DTIO;
+package com.Dx_Valley.AgroFinance.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class createUserResponse {
+public class ResponseMessage {
     String status;
     String description;
+
 }

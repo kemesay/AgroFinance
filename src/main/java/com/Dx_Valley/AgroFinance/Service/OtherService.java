@@ -1,14 +1,14 @@
 package com.Dx_Valley.AgroFinance.Service;
-import com.Dx_Valley.AgroFinance.Models.Others;
+import com.Dx_Valley.AgroFinance.Models.OtherAsset;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface OtherService {
-    List<Others> fetchOthers();
-    Others editOthers (Others others);
+    List<OtherAsset> fetchOthers();
+    OtherAsset editOthers (OtherAsset others);
 
-    ResponseEntity<?> registerOthers(Others others);
+    ResponseEntity<?> registerOthers(OtherAsset others);
 
 }
 

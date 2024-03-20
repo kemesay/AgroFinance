@@ -1,6 +1,6 @@
 package com.Dx_Valley.AgroFinance.ServiceImp;
-import com.Dx_Valley.AgroFinance.DTIO.ResponseMessage;
-import com.Dx_Valley.AgroFinance.Models.Status;
+import com.Dx_Valley.AgroFinance.DTO.ResponseMessage;
+import com.Dx_Valley.AgroFinance.Models.AssetWithStatus;
 import com.Dx_Valley.AgroFinance.Repository.StatusRepository;
 import com.Dx_Valley.AgroFinance.Service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,8 @@ public class StatusServiceImp implements StatusService {
     @Autowired
     private StatusRepository statusRepository;
     @Override
-    public ResponseEntity<?> registerStatus(Status status) {
-        Status status1 = statusRepository.findByStatusName(status.getStatusName());
+    public ResponseEntity<?> registerStatus(AssetWithStatus status) {
+        AssetWithStatus status1 = statusRepository.findByStatusName(status.getStatusName());
         ResponseMessage responseMessage;
         if (status1 == null) {
             statusRepository.save(status);
@@ -27,13 +27,13 @@ public class StatusServiceImp implements StatusService {
         }
     }
     @Override
-    public Status editStatus(Status status) {
+    public AssetWithStatus editStatus(AssetWithStatus status) {
         return this.statusRepository.save(status);
     }
 
     @Override
-    public List<Status> fetchStatus() {
-        List<Status> status = new ArrayList<>();
+    public List<AssetWithStatus> fetchStatus() {
+        List<AssetWithStatus> status = new ArrayList<>();
         status.addAll(statusRepository.findAll());
         return status;
 }
