@@ -8,9 +8,10 @@ import com.Dx_Valley.AgroFinance.DTO.AssetWithStatusRequest;
 import com.Dx_Valley.AgroFinance.DTO.ScoreRequest;
 import com.Dx_Valley.AgroFinance.Models.Asset;
 import com.Dx_Valley.AgroFinance.Models.AssetWithStatus;
+import com.Dx_Valley.AgroFinance.Models.FarmerAge;
 import com.Dx_Valley.AgroFinance.Repository.AssetRepository;
 import com.Dx_Valley.AgroFinance.Repository.AssetWithStatusRepository;
-import com.Dx_Valley.AgroFinance.Service.AssetService;
+import com.Dx_Valley.AgroFinance.Repository.FarmerAgeRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,9 +19,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/score")
 public class CalculateScoreController {
-    private final AssetService assetService;
     private final AssetRepository assetRepository;
     private final AssetWithStatusRepository assetWithStatusRepository;
+    private final FarmerAgeRepository farmerAgeRepository;
+
+    // note create different table for registaring weight for each assets
 
     @PostMapping("/calculate")
     private ResponseEntity<Double> calculateScore(@RequestBody ScoreRequest request) {
@@ -50,15 +53,40 @@ public class CalculateScoreController {
         }
 
         // handle case for assets with status
-        for(AssetWithStatusRequest assetWithStatausRequest : request.getAssetsWithStatus()){
-            if(assetWithStatausRequest.getAssetValue().equals("yes")){
-                AssetWithStatus assetWithStatus = assetWithStatusRepository.findByStatusName(assetWithStatausRequest.getAssetName());
+        for (AssetWithStatusRequest assetWithStatausRequest : request.getAssetsWithStatus()) {
+            if (assetWithStatausRequest.getAssetValue().equals("yes")) {
+                AssetWithStatus assetWithStatus = assetWithStatusRepository
+                        .findByStatusName(assetWithStatausRequest.getAssetName());
 
-                if(assetWithStatus != null){
-                    totalScore+=assetWithStatus.getStatusWeight();
+                if (assetWithStatus != null) {
+                    totalScore += assetWithStatus.getStatusWeight();
                 }
             }
         }
+
+        // handle age case
+        Double age = request.getAge();
+        Double val;
+        FarmerAge farmerAge = farmerAgeRepository
+                .findByAgeIntervalStartLessThanEqualAndAgeIntervalEndGreaterThanEqual(age, age);
+        if (farmerAge != null) {
+            val = farmerAge.getAgeValue();
+            Double weight = farmerAge.getWeight();
+            Double normalizedValue = val / farmerAge.getAgeStandard();
+
+            totalScore += normalizedValue * weight;
+        } else {
+            val = 1D;
+            FarmerAge farmerAge2 = farmerAgeRepository.findById(1L).orElseThrow();
+            Double weight = farmerAge2.getWeight();
+            Double normalizedValue = val / farmerAge2.getAgeStandard();
+
+            totalScore += normalizedValue * weight;
+        }
+
+
+        // hande education case here
+        
 
         return ResponseEntity.ok(totalScore);
     }
