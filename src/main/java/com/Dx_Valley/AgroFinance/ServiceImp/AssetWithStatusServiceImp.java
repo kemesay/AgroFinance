@@ -7,24 +7,22 @@ import com.Dx_Valley.AgroFinance.Service.AssetWithStatusService;
 
 import lombok.AllArgsConstructor;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
 public class AssetWithStatusServiceImp implements AssetWithStatusService {
 
-    private final AssetWithStatusRepository statusRepository;
+    private final AssetWithStatusRepository assetWithStatusRepository;
 
     @Override
     public ResponseEntity<?> registerAssetWithStatus(AssetWithStatus status) {
-        AssetWithStatus status1 = statusRepository.findByStatusName(status.getStatusName());
+        AssetWithStatus status1 = assetWithStatusRepository.findByStatusName(status.getStatusName());
         ResponseMessage responseMessage;
         if (status1 == null) {
-            statusRepository.save(status);
+            assetWithStatusRepository.save(status);
             responseMessage = new ResponseMessage("success", "Status created successfully");
             return new ResponseEntity<>(responseMessage, HttpStatus.OK);
         } else {
@@ -33,12 +31,15 @@ public class AssetWithStatusServiceImp implements AssetWithStatusService {
         }
     }
 
-
-
     @Override
     public List<AssetWithStatus> fetchAssetWithStatus() {
         List<AssetWithStatus> status = new ArrayList<>();
-        status.addAll(statusRepository.findAll());
+        status.addAll(assetWithStatusRepository.findAll());
         return status;
+    }
+
+    @Override
+    public AssetWithStatus editAsset(AssetWithStatus asset) {
+        return assetWithStatusRepository.save(asset);
     }
 }

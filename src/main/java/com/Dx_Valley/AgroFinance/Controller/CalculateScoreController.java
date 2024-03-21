@@ -14,8 +14,6 @@ import com.Dx_Valley.AgroFinance.Service.AssetService;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/score")

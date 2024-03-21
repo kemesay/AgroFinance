@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface AssetWithStatusService {
     List<AssetWithStatus> fetchAssetWithStatus();
+    AssetWithStatus editAsset (AssetWithStatus asset);
     ResponseEntity<?> registerAssetWithStatus(AssetWithStatus status);
 }
 

@@ -1,6 +1,7 @@
 package com.Dx_Valley.AgroFinance.Controller;
 
 import com.Dx_Valley.AgroFinance.DTO.createUserResponse;
+import com.Dx_Valley.AgroFinance.Models.Asset;
 import com.Dx_Valley.AgroFinance.Models.AssetWithStatus;
 import com.Dx_Valley.AgroFinance.Repository.AssetWithStatusRepository;
 import com.Dx_Valley.AgroFinance.Service.AssetWithStatusService;
@@ -40,6 +41,23 @@ public class AssetWithStatusController {
         }
         return new ResponseEntity<>(asset, HttpStatus.OK);
     }
+
+     @PatchMapping("/edit/{assetId}")
+    AssetWithStatus editAsset(@RequestBody AssetWithStatus asset, @PathVariable Long assetId) {
+        AssetWithStatus asset1 = assetRepository.findById(assetId).orElseThrow();
+        if(asset.getStatusName() != null){
+            asset1.setStatusName(asset.getStatusName());
+        }
+        if(asset.getStatusDescription() != null){
+            asset1.setStatusDescription(asset.getStatusDescription());
+        }
+        if(asset.getStatusWeight() != null){
+            asset1.setStatusWeight(asset.getStatusWeight());
+        }
+        
+        return assetService.editAsset(asset1);
+    }
+
 
     @DeleteMapping("/delete/{otherId}")
     void deleteOthers(@PathVariable Long assetId) {
