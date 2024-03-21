@@ -3,16 +3,21 @@ import com.Dx_Valley.AgroFinance.DTO.ResponseMessage;
 import com.Dx_Valley.AgroFinance.Models.Asset;
 import com.Dx_Valley.AgroFinance.Repository.AssetRepository;
 import com.Dx_Valley.AgroFinance.Service.AssetService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+
 @Service
+@AllArgsConstructor
 public class AssetServiceImp implements AssetService {
-    @Autowired
-    private AssetRepository assetRepository;
+   
+    private final AssetRepository assetRepository;
+
     @Override
     public ResponseEntity<?> registerAsset(Asset asset) {
         Asset asset1 = assetRepository.findByAssetName(asset.getAssetName());

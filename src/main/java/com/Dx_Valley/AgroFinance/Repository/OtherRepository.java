@@ -4,11 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface OtherRepository extends  JpaRepository<OtherAsset, Long> {
-
-    OtherAsset findByOtherName(String otherName);
-    OtherAsset findByOtherId(Long otherId);
-
-
+    OtherAsset findByName(String otherName);
 }
 
 

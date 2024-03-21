@@ -13,10 +13,10 @@ public class AssetWithStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long statusId;
+    private Long Id;
     private String statusName;
     private String statusDescription;
     private Long statusWeight;
-    private Status statusValue;
+    private Status standard;
 
 }

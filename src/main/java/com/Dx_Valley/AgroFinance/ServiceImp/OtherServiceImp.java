@@ -17,7 +17,7 @@ public class OtherServiceImp implements OtherService {
     private OtherRepository otherRepository;
     @Override
     public ResponseEntity<?> registerOthers(OtherAsset otherAsset) {
-        OtherAsset others = otherRepository.findByOtherName(otherAsset.getName());
+        OtherAsset others = otherRepository.findByName(otherAsset.getName());
         ResponseMessage responseMessage;
         if (others == null) {
             otherRepository.save(others);
