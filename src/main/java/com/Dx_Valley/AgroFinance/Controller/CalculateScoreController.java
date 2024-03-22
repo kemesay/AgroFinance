@@ -8,9 +8,11 @@ import com.Dx_Valley.AgroFinance.DTO.AssetWithStatusRequest;
 import com.Dx_Valley.AgroFinance.DTO.ScoreRequest;
 import com.Dx_Valley.AgroFinance.Models.Asset;
 import com.Dx_Valley.AgroFinance.Models.AssetWithStatus;
+import com.Dx_Valley.AgroFinance.Models.Education;
 import com.Dx_Valley.AgroFinance.Models.FarmerAge;
 import com.Dx_Valley.AgroFinance.Repository.AssetRepository;
 import com.Dx_Valley.AgroFinance.Repository.AssetWithStatusRepository;
+import com.Dx_Valley.AgroFinance.Repository.EducationRepository;
 import com.Dx_Valley.AgroFinance.Repository.FarmerAgeRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class CalculateScoreController {
     private final AssetRepository assetRepository;
     private final AssetWithStatusRepository assetWithStatusRepository;
     private final FarmerAgeRepository farmerAgeRepository;
+    private final EducationRepository educationRepository;
 
     // note create different table for registaring weight for each assets
 
@@ -85,8 +88,14 @@ public class CalculateScoreController {
         }
 
 
-        // hande education case here
-        
+         // Handle education scoring
+        Education education = educationRepository.findByLevel(request.getEducationLevel());
+        if (education != null) {
+            Double weight = education.getWeight();
+            Double normalizedValue = education.getScoreValue() / education.getStandard();
+
+            totalScore += normalizedValue * weight;
+        }
 
         return ResponseEntity.ok(totalScore);
     }

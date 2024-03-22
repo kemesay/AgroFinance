@@ -15,5 +15,5 @@ public class ScoreRequest {
     private List<AssetRequest> assets;
     private List<AssetWithStatusRequest> assetsWithStatus;
     private Double age;
-    private String education;
+    private String educationLevel;
 }
